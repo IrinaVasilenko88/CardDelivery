@@ -2,14 +2,13 @@ package ru.netology;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Keys;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
@@ -22,28 +21,22 @@ public class CardDeliveryTest {
     @Test
     void shouldRegister() {
         $("[data-test-id=city] input").setValue("Уфа");
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
-        Calendar cal = new GregorianCalendar();
-        cal.add(Calendar.DAY_OF_YEAR, 3);
-        String string = sdf.format(cal.getTime());
-        $("[placeholder='Дата встречи']").clear();
-        $("[placeholder='Дата встречи']").setValue(string);
+        String s = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        $("[placeholder='Дата встречи']").doubleClick().sendKeys(Keys.BACK_SPACE);
+        $("[placeholder='Дата встречи']").setValue(s);
         $("[name='name']").setValue("Иванов Иван");
         $("[name='phone']").setValue("+71111111111");
         $("[data-test-id=agreement]").click();
         $("[class='button__text']").click();
-        $(withText("Успешно!")).waitUntil(visible, 15000);
+        $("[data-test-id=notification]").waitUntil(visible, 15000).shouldHave(exactText("Успешно! Встреча успешно забронирована на "+s));
 
     }
     @Test
     void shouldNotRegisterIfCityIsInvalid() {
         $("[data-test-id=city] input").setValue("Ufa");
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
-        Calendar cal = new GregorianCalendar();
-        cal.add(Calendar.DAY_OF_YEAR, 3);
-        String string = sdf.format(cal.getTime());
-        $("[placeholder='Дата встречи']").clear();
-        $("[placeholder='Дата встречи']").setValue(string);
+        String s = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        $("[placeholder='Дата встречи']").doubleClick().sendKeys(Keys.BACK_SPACE);
+        $("[placeholder='Дата встречи']").setValue(s);
         $("[name='name']").setValue("Иванов Иван");
         $("[name='phone']").setValue("+71111111111");
         $("[data-test-id=agreement]").click();
@@ -56,12 +49,9 @@ public class CardDeliveryTest {
     @Test
     void shouldNotRegisterIfNameIsInvalid() {
         $("[data-test-id=city] input").setValue("Уфа");
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
-        Calendar cal = new GregorianCalendar();
-        cal.add(Calendar.DAY_OF_YEAR, 3);
-        String string = sdf.format(cal.getTime());
-        $("[placeholder='Дата встречи']").clear();
-        $("[placeholder='Дата встречи']").setValue(string);
+        String s = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        $("[placeholder='Дата встречи']").doubleClick().sendKeys(Keys.BACK_SPACE);
+        $("[placeholder='Дата встречи']").setValue(s);
         $("[name='name']").setValue("Ivanov Ivan");
         $("[name='phone']").setValue("+71111111111");
         $("[data-test-id=agreement]").click();
@@ -73,12 +63,9 @@ public class CardDeliveryTest {
     @Test
     void shouldNotRegisterIfPhoneIsInvalid() {
         $("[data-test-id=city] input").setValue("Уфа");
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
-        Calendar cal = new GregorianCalendar();
-        cal.add(Calendar.DAY_OF_YEAR, 3);
-        String string = sdf.format(cal.getTime());
-        $("[placeholder='Дата встречи']").clear();
-        $("[placeholder='Дата встречи']").setValue(string);
+        String s = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        $("[placeholder='Дата встречи']").doubleClick().sendKeys(Keys.BACK_SPACE);
+        $("[placeholder='Дата встречи']").setValue(s);
         $("[name='name']").setValue("Иванов Иван");
         $("[name='phone']").setValue("+7111111111");
         $("[data-test-id=agreement]").click();
@@ -87,12 +74,9 @@ public class CardDeliveryTest {
     }
     @Test
     void shouldNotRegisterIfCityIsEmpty() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
-        Calendar cal = new GregorianCalendar();
-        cal.add(Calendar.DAY_OF_YEAR, 3);
-        String string = sdf.format(cal.getTime());
-        $("[placeholder='Дата встречи']").clear();
-        $("[placeholder='Дата встречи']").setValue(string);
+        String s = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        $("[placeholder='Дата встречи']").doubleClick().sendKeys(Keys.BACK_SPACE);
+        $("[placeholder='Дата встречи']").setValue(s);
         $("[name='name']").setValue("Иванов Иван");
         $("[name='phone']").setValue("+71111111111");
         $("[data-test-id=agreement]").click();
@@ -103,12 +87,9 @@ public class CardDeliveryTest {
     @Test
     void shouldNotRegisterIfNameIsEmpty() {
         $("[data-test-id=city] input").setValue("Уфа");
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
-        Calendar cal = new GregorianCalendar();
-        cal.add(Calendar.DAY_OF_YEAR, 3);
-        String string = sdf.format(cal.getTime());
-        $("[placeholder='Дата встречи']").clear();
-        $("[placeholder='Дата встречи']").setValue(string);
+        String s = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        $("[placeholder='Дата встречи']").doubleClick().sendKeys(Keys.BACK_SPACE);
+        $("[placeholder='Дата встречи']").setValue(s);
         $("[name='phone']").setValue("+71111111111");
         $("[data-test-id=agreement]").click();
         $("[class='button__text']").click();
@@ -117,12 +98,9 @@ public class CardDeliveryTest {
     @Test
     void shouldNotRegisterIfPhoneIsEmpty() {
         $("[data-test-id=city] input").setValue("Уфа");
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
-        Calendar cal = new GregorianCalendar();
-        cal.add(Calendar.DAY_OF_YEAR, 3);
-        String string = sdf.format(cal.getTime());
-        $("[placeholder='Дата встречи']").clear();
-        $("[placeholder='Дата встречи']").setValue(string);
+        String s = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        $("[placeholder='Дата встречи']").doubleClick().sendKeys(Keys.BACK_SPACE);
+        $("[placeholder='Дата встречи']").setValue(s);
         $("[name='name']").setValue("Иванов Иван");
         $("[data-test-id=agreement]").click();
         $("[class='button__text']").click();
@@ -131,12 +109,9 @@ public class CardDeliveryTest {
     @Test
     void shouldNotRegisterIfCheckboxIsEmpty() {
         $("[data-test-id=city] input").setValue("Уфа");
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy");
-        Calendar cal = new GregorianCalendar();
-        cal.add(Calendar.DAY_OF_YEAR, 3);
-        String string = sdf.format(cal.getTime());
-        $("[placeholder='Дата встречи']").clear();
-        $("[placeholder='Дата встречи']").setValue(string);
+        String s = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        $("[placeholder='Дата встречи']").doubleClick().sendKeys(Keys.BACK_SPACE);
+        $("[placeholder='Дата встречи']").setValue(s);
         $("[name='name']").setValue("Иванов Иван");
         $("[name='phone']").setValue("+71111111111");
         $("[class='button__text']").click();
