@@ -28,7 +28,8 @@ public class CardDeliveryTest {
         $("[name='phone']").setValue("+71111111111");
         $("[data-test-id=agreement]").click();
         $("[class='button__text']").click();
-        $("[data-test-id=notification]").waitUntil(visible, 15000).shouldHave(exactText("Успешно! Встреча успешно забронирована на "+s));
+        $("[data-test-id=notification]").waitUntil(visible, 15000)
+                .shouldHave(exactText("Успешно! Встреча успешно забронирована на "+s));
 
     }
     @Test
@@ -56,7 +57,8 @@ public class CardDeliveryTest {
         $("[name='phone']").setValue("+71111111111");
         $("[data-test-id=agreement]").click();
         $("[class='button__text']").click();
-        $("[data-test-id='name'] .input__sub").shouldHave(exactText("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы."));
+        $("[data-test-id='name'] .input__sub")
+                .shouldHave(exactText("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы."));
 
     }
 
@@ -70,7 +72,8 @@ public class CardDeliveryTest {
         $("[name='phone']").setValue("+7111111111");
         $("[data-test-id=agreement]").click();
         $("[class='button__text']").click();
-        $("[data-test-id='phone'] .input__sub").shouldHave(exactText("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678."));
+        $("[data-test-id='phone'] .input__sub")
+                .shouldHave(exactText("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678."));
     }
     @Test
     void shouldNotRegisterIfCityIsEmpty() {
@@ -115,7 +118,8 @@ public class CardDeliveryTest {
         $("[name='name']").setValue("Иванов Иван");
         $("[name='phone']").setValue("+71111111111");
         $("[class='button__text']").click();
-        $("[data-test-id=agreement].input_invalid .checkbox__text").shouldHave(exactText("Я соглашаюсь с условиями обработки и использования моих персональных данных"));
+        $("[data-test-id=agreement].input_invalid .checkbox__text")
+                .shouldHave(exactText("Я соглашаюсь с условиями обработки и использования моих персональных данных"));
     }
 
 }
